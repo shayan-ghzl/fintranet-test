@@ -1,0 +1,49 @@
+<div class="component-container">
+    <div class="user-list" *ngIf="(userList$ | async) as list">
+        <div class="table-toolbar">
+            <div class="input-group">
+                <input type="text" class="form-control form-control-sm" placeholder="search..." #searchInput (input)="search(searchInput.value, list)">
+            </div>
+            <div class="btn-group">
+                <button type="button" class="btn btn-sm btn-primary" (click)="openSidebar=!openSidebar">
+                    <!-- <svg width="16" height="16"><use xlink:href="#home"></use></svg> -->
+                    Filter Button
+                </button>
+            </div>
+        </div>
+        <div class="table-responsive" *ngIf="list.length;else emptyTable">
+            <table class="table table-bordered table-sm table-striped">
+                <thead>
+                    <tr>
+                        <th>firstName</th>
+                        <th>lastName</th>
+                        <th>age</th>
+                        <th>gender</th>
+                        <th>email</th>
+                        <th>phone</th>
+                        <th>eyeColor</th>
+                        <th>birthdate</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let user of list;let index=index">
+                        <td>{{user.firstName}}</td>
+                        <td>{{user.lastName}}</td>
+                        <td>{{user.age}}</td>
+                        <td>{{user.gender}}</td>
+                        <td>{{user.email}}</td>
+                        <td>{{user.phone}}</td>
+                        <td>{{user.eyeColor}}</td>
+                        <td>{{user.birthDate}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <ng-template #emptyTable>
+            <div class="empty-message">
+                <h4>Table is empty</h4>
+            </div>
+        </ng-template>
+    </div>
+    <app-sidebar [openSidebar]="openSidebar"></app-sidebar>
+</div>

@@ -1,0 +1,14 @@
+.component-container{
+    margin: 4%;
+}
+.table-toolbar{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    .input-group{
+        width: 280px;
+    }
+}
+.table{
+    white-space: nowrap;
+}

@@ -1,0 +1,22 @@
+.component-container{
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 280px;
+    padding: 16px;
+    background: var(--bs-white);
+    z-index: 1;
+    overflow: hidden;
+    transition: 0.2s;
+    transform: translateX(-100%);
+    visibility: hidden;
+}
+:host{
+    &.show{
+        .component-container{
+            visibility: visible;
+            transform: translateX(0);
+        }
+    }
+}
