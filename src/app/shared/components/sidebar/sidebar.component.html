@@ -2,27 +2,53 @@
   <div class="menu-container">
     <ul class="menu-wrapper">
       <li>
-        <strong>Gender:</strong>
-        <div>
+        <strong class="item-header">Gender:</strong>
+        <div class="item-body">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="female-gender" checked>
+            <label class="form-check-label" for="female-gender">
+              Female
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="male-gender">
+            <label class="form-check-label" for="male-gender">
+              Male
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="others-gender">
+            <label class="form-check-label" for="others-gender">
+              Others and I prefer not to say
+            </label>
+          </div>
+        </div>
+      </li>
+      <li>
+        <strong class="item-header">Age:</strong>
+        <div class="item-body">
+          <div class="dropdown">
+            <button class="btn btn-outline-secondary btn-sm dropdown-toggle" type="button" id="ageDropdown" [appDropdownCtrl]="dropdown" #dropdownCtrl="exportDropdownCtrl">
+              Age
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="ageDropdown" [appDropdown]="dropdownCtrl" #dropdown="exportDropdown">
+              <li class="dropdown-item">Action</li>
+              <li class="dropdown-item">Another action</li>
+              <li class="dropdown-item">Something else here</li>
+            </ul>
+          </div>
+        </div>
+      </li>
+      <li>
+        <strong class="item-header">Eye color:</strong>
+        <div class="item-body">
           
         </div>
       </li>
       <li>
-        <strong>Age:</strong>
+        <strong class="item-header">Birth date:</strong>
         <div>
-          
-        </div>
-      </li>
-      <li>
-        <strong>Eye color:</strong>
-        <div>
-          
-        </div>
-      </li>
-      <li>
-        <strong>Birth date:</strong>
-        <div>
-          
+          <p-calendar [(ngModel)]="rangeDates" selectionMode="range" [readonlyInput]="true"></p-calendar>
         </div>
       </li>
     </ul>

@@ -6,9 +6,16 @@
     justify-content: space-between;
     margin-bottom: 12px;
     .input-group{
-        width: 280px;
+        width: 300px;
     }
 }
 .table{
     white-space: nowrap;
+}
+svg{
+    fill: var(--bs-white);
+    vertical-align: text-bottom;
+}
+.empty-message{
+    text-align: center;
 }

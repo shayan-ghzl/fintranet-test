@@ -3,9 +3,9 @@
     top: 0;
     bottom: 0;
     left: 0;
-    width: 280px;
-    padding: 16px;
-    background: var(--bs-white);
+    width: 300px;
+    padding: 24px;
+    background: var(--bs-gray-100);
     z-index: 1;
     overflow: hidden;
     transition: 0.2s;
@@ -19,4 +19,133 @@
             transform: translateX(0);
         }
     }
+    ::ng-deep{
+        .p-inputtext {
+            font-size: 12px;
+            padding: 0.75em 0.75em;
+            border-radius: 6px;
+        }
+          p-calendar.p-calendar-clearable .p-inputtext {
+            padding-right: 2.5em;
+          }
+          p-calendar.p-calendar-clearable .p-calendar-clear-icon {
+            right: 0.75em;
+          }
+          p-calendar.p-calendar-clearable.p-calendar-w-btn .p-calendar-clear-icon {
+            right: 3.75em;
+          }
+          .p-datepicker {
+            font-size: 10px;
+            padding: 0.5em;
+            border: 1px solid var(--bs-gray-500);
+          }
+          .p-datepicker .p-datepicker-header {
+            padding: 0.5em;
+          }
+          .p-datepicker .p-datepicker-header .p-datepicker-prev,
+          .p-datepicker .p-datepicker-header .p-datepicker-next {
+            width: 2em;
+            height: 2em;
+          }
+          .p-datepicker .p-datepicker-header .p-datepicker-prev:focus,
+          .p-datepicker .p-datepicker-header .p-datepicker-next:focus {
+            box-shadow: 0 0 0 0.2em #BFDBFE;
+          }
+          .p-datepicker .p-datepicker-header .p-datepicker-title {
+            line-height: 2em;
+          }
+          .p-datepicker .p-datepicker-header .p-datepicker-title .p-datepicker-year,
+          .p-datepicker .p-datepicker-header .p-datepicker-title .p-datepicker-month {
+            padding: 0.5em;
+          }
+          .p-datepicker .p-datepicker-header .p-datepicker-title .p-datepicker-month {
+            margin-right: 0.5em;
+          }
+          .p-datepicker table {
+            font-size: 1em;
+            margin: 0.5em 0;
+          }
+          .p-datepicker table th {
+            padding: 0.5em;
+          }
+          .p-datepicker table th > span {
+            width: 2.5em;
+            height: 2.5em;
+          }
+          .p-datepicker table td {
+            padding: 0.5em;
+          }
+          .p-datepicker table td > span {
+            width: 2.5em;
+            height: 2.5em;
+          }
+          .p-datepicker table td > span:focus {
+            box-shadow: 0 0 0 0.2em #BFDBFE;
+          }
+          .p-datepicker .p-datepicker-buttonbar {
+            padding: 1em 0;
+          }
+          .p-datepicker .p-timepicker {
+            padding: 0.5em;
+          }
+          .p-datepicker .p-timepicker button {
+            width: 2em;
+            height: 2em;
+          }
+          .p-datepicker .p-timepicker button:focus {
+            box-shadow: 0 0 0 0.2em #BFDBFE;
+          }
+          .p-datepicker .p-timepicker span {
+            font-size: 1.25em;
+          }
+          .p-datepicker .p-timepicker > div {
+            padding: 0 0.5em;
+          }
+          .p-datepicker .p-monthpicker {
+            margin: 0.5em 0;
+          }
+          .p-datepicker .p-monthpicker .p-monthpicker-month {
+            padding: 0.5em;
+          }
+          .p-datepicker .p-yearpicker {
+            margin: 0.5em 0;
+          }
+          .p-datepicker .p-yearpicker .p-yearpicker-year {
+            padding: 0.5em;
+          }
+          .p-datepicker.p-datepicker-multiple-month .p-datepicker-group {
+            padding-right: 0.5em;
+            padding-left: 0.5em;
+          }
+          .p-datepicker:not(.p-disabled) table td span:not(.p-highlight):not(.p-disabled):focus {
+            box-shadow: 0 0 0 0.2em #BFDBFE;
+          }
+          .p-datepicker:not(.p-disabled) .p-monthpicker .p-monthpicker-month:not(.p-disabled):focus {
+            box-shadow: 0 0 0 0.2em #BFDBFE;
+          }
+          .p-datepicker:not(.p-disabled) .p-yearpicker .p-yearpicker-year:not(.p-disabled):focus {
+            box-shadow: 0 0 0 0.2em #BFDBFE;
+          }
+    }
 }
+.menu-wrapper{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    >li:not(:last-child){
+        margin-bottom: 24px;
+    }
+}
+.item-header{
+    display: block;
+    margin-bottom: 16px;
+    padding-bottom: 2px;
+    border-bottom: 1px solid var(--bs-gray-400);
+}
+.form-check-label, .dropdown-item{
+    cursor: pointer;
+}
+.dropdown-menu.show{
+  display: block;
+}
+.item-body{}

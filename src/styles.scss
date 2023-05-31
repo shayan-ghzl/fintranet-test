@@ -3,6 +3,15 @@
 @import "./assets/css/bootstrap-reboot.css";
 @import "./assets/css/bootstrap-button.css";
 @import "./assets/css/bootstrap-forms.css";
+@import "./assets/css/bootstrap-dropdown.css";
 @import "./assets/css/bootstrap-table.css";
 @import "./assets/css/spinner.css";
 @import "./assets/css/utility.css";
+.p-component,
+.p-link,
+.p-autocomplete .p-autocomplete-multiple-container .p-autocomplete-input-token input,
+.p-chips .p-chips-multiple-container .p-chips-input-token input,
+.p-inputtext,
+.p-terminal .p-terminal-input {
+    font-family: var(--bs-font-sans-serif);
+}

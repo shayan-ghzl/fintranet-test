@@ -1,4 +1,9 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { AppState } from 'src/app/state/app.state';
+import { userSelector } from 'src/app/state/selectors/user.selector';
+import { IUser } from '../../models/models';
 
 @Component({
   selector: 'app-sidebar',
@@ -8,8 +13,10 @@ import { Component, Input } from '@angular/core';
       '[class.show]': 'openSidebar'
   }
 })
-export class SidebarComponent {
+export class SidebarComponent implements OnInit{
 
+  userList$: Observable<IUser[]> =  this.store.select(userSelector);
+  rangeDates: Date[] = [];
   _openSidebar = false;
 
   @Input() set openSidebar(value: boolean){
@@ -25,4 +32,13 @@ export class SidebarComponent {
     return this._openSidebar;
   }
 
+  constructor(private store: Store<AppState>) { 
+  }
+
+  ngOnInit(): void {
+    // set last 24 hours to datepicker
+    const temp = new Date();
+    temp.setDate(temp.getDate() - 1);
+    this.rangeDates = [new Date(), temp];
+  }
 }
