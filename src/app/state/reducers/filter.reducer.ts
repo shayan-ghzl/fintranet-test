@@ -30,8 +30,5 @@ export const filtersReducer = createReducer(
     on(genderFilterActionUpdate, (state, prop) => ({...state, gender: prop.gender})),
     on(dateFilterActionUpdate, (state, prop) => ({...state, birthDate: prop.dateFilter})),
     on(ageFilterActionUpdate, (state, prop) => ({...state, age: prop.age})),
-    on(ageOperationFilterActionUpdate, (state, prop) => {
-        console.log({...state, age: {...state.age, operation: prop.operation}});
-        return {...state, age: {...state.age, operation: prop.operation}};
-    }),
+    on(ageOperationFilterActionUpdate, (state, prop) => ({...state, age: {...state.age, operation: prop.operation}})),
 )

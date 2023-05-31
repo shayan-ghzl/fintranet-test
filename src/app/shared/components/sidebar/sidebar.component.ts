@@ -18,9 +18,7 @@ import { dateFilterActionUpdate, filtersActionSet } from 'src/app/state/actions/
 export class SidebarComponent {
 
   userList$: Observable<IUser[]> =  this.store.select(userSelector);
-  filters$: Observable<IFilter> =  this.store.select(filtersSelector).pipe(
-    tap(console.log)
-  );
+  filters$: Observable<IFilter> =  this.store.select(filtersSelector);
 
   _openSidebar = false;
 

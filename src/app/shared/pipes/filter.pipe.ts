@@ -45,7 +45,6 @@ export class FilterPipe implements PipeTransform {
       return list;
     }
     let temp: IUser[] = [];
-    console.log(this.filters!.age);
     if (this.filters!.age.operation.equal) {
        temp = list.filter(x => this.filters!.age.value === x.age);
     }
