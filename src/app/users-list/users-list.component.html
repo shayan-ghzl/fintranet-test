@@ -1,5 +1,5 @@
 <div class="component-container">
-    <ng-container *ngIf="(userList$ | async | filter: tableSearchInput : ['firstName', 'lastName']) as list;else loadingTemplate">
+    <ng-container *ngIf="(userList$ | async | filter: tableSearchInput : ['firstName', 'lastName'] : (filters$ | async)) as list;else loadingTemplate">
         <div class="user-list">
             <div class="table-toolbar">
                 <div class="input-group">

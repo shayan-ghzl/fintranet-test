@@ -1,29 +1,15 @@
-import { OnDestroy, Pipe, PipeTransform } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { Subscription } from 'rxjs';
-import { AppState } from 'src/app/state/app.state';
-import { filtersSelector } from 'src/app/state/selectors/filter.selector';
+import { Pipe, PipeTransform } from '@angular/core';
 import { IFilter, IUser } from '../models/models';
 
 @Pipe({
   name: 'filter'
 })
-export class FilterPipe implements PipeTransform, OnDestroy {
+export class FilterPipe implements PipeTransform {
 
-  filters!: IFilter;
+  filters!: IFilter | null;
 
-  subscription = new Subscription();
-  constructor(
-    private store:Store<AppState>
-  ){
-    this.subscription.add(
-      this.store.select(filtersSelector).subscribe(value => {
-        this.filters = value;
-      })
-    );
-  }
-
-  transform(value: IUser[] | null, inputVal: string, fields: string[]): IUser[] | null {
+  transform(value: IUser[] | null, inputVal: string, fields: string[], filters: IFilter | null): IUser[] | null {
+    this.filters = filters;
     if(value){
       return this.search(inputVal, value, fields);
     }
@@ -32,7 +18,42 @@ export class FilterPipe implements PipeTransform, OnDestroy {
 
   search(value: string, list: IUser[], fields: string[]){
     const keyword = value.trim().toLowerCase();
-    return list.filter(x => this.searchInFields(x, fields).includes(keyword));
+    let temp: IUser[] = [];
+    temp = list.filter(x => this.searchInFields(x, fields).includes(keyword));
+    temp = this.genderSearch(temp);
+    temp = this.ageSearch(temp);
+    temp = this.eyeColorSearch(temp);
+    temp = this.birthDateSearch(temp);
+    return temp;
+  }
+
+  genderSearch(list: IUser[]){
+    let temp: string[] = [];
+    for (const [key, value] of Object.entries((this.filters && this.filters.gender) || {})) {
+      if (value) {
+        temp.push(key);
+      }
+    }
+    console.log(list.filter(x => temp.includes(x.gender)));
+    return list.filter(x => temp.includes(x.gender));
+  }
+
+  ageSearch(list: IUser[]){
+    return list;
+  }
+
+  eyeColorSearch(list: IUser[]){
+    let temp: string[] = [];
+    for (const [key, value] of Object.entries((this.filters && this.filters.eyeColor) || {})) {
+      if (value) {
+        temp.push(key);
+      }
+    }
+    return list.filter(x => (temp.length) ? temp.includes(x.eyeColor) : x);
+  }
+
+  birthDateSearch(list: IUser[]){
+    return list;
   }
 
   searchInFields(model: any, fields: string[]){
@@ -43,7 +64,4 @@ export class FilterPipe implements PipeTransform, OnDestroy {
     return temp.join(' ');
   }
 
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
-  }
 }
