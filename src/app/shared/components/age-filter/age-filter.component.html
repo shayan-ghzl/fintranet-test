@@ -32,7 +32,7 @@
     </div>
     <div>
       <label for="age-input" class="form-label">Age:</label>
-      <input type="text" class="form-control form-control-sm" id="age-input" #ageInput (input)="ageChanged(ageInput)" (keyup.enter)="ageEnterPressed(ageInput.value)">
+      <input type="text" class="form-control form-control-sm" id="age-input" #ageInput (input)="ageChanged(ageInput)" (keyup.enter)="ageEnterPressed(ageInput.value)" [value]="ageFormGroup.controls.value.value">
       <small>hint: Enter a number and then press enter</small>
     </div>
 </div>

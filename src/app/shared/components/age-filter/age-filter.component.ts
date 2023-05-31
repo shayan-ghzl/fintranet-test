@@ -2,9 +2,9 @@ import { Component, Input, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { EMPTY, Subscription, switchMap } from 'rxjs';
-import { ageFilterActionUpdate } from 'src/app/state/actions/filter.action';
+import { ageFilterActionUpdate, ageOperationFilterActionUpdate } from 'src/app/state/actions/filter.action';
 import { AppState } from 'src/app/state/app.state';
-import { IAge, IFilter, IUser } from '../../models/models';
+import { IAge, IAgeOperation, IFilter, IUser } from '../../models/models';
 
 @Component({
   selector: 'app-age-filter',
@@ -35,7 +35,7 @@ export class AgeFilterComponent implements OnDestroy{
     this.subscription.add(
       this.ageFormGroup.controls.operation.valueChanges.pipe(
         switchMap((value) => {
-          this.store.dispatch(ageFilterActionUpdate({age: value as IAge}));
+          this.store.dispatch(ageOperationFilterActionUpdate({operation: value as IAgeOperation}));
           return EMPTY;
         })
       ).subscribe()
