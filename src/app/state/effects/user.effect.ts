@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { map, mergeMap } from 'rxjs';
+import { map, mergeMap, tap } from 'rxjs';
 import { StorageService } from 'src/app/shared/services/storage.service';
 import { userActionStartEffect, usersActionSet } from '../actions/user.action';
 
@@ -12,6 +12,7 @@ export class UserEffects {
             ofType(userActionStartEffect),
             mergeMap(() => this.storageService.getUsers()
                 .pipe(
+                    tap(console.log),
                     map(response =>
                         usersActionSet({ users: response.users })
                     ),

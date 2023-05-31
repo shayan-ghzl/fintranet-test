@@ -13,6 +13,8 @@ import { UsersListComponent } from './users-list/users-list.component';
 import { DropdownCtrlDirective, DropdownDirective } from './shared/directives/dropdown.directive';
 import { EffectsModule } from '@ngrx/effects';
 import { UserEffects } from './state/effects/user.effect';
+import { UniquePipe } from './shared/pipes/unique.pipe';
+import { FilterPipe } from './shared/pipes/filter.pipe';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,9 @@ import { UserEffects } from './state/effects/user.effect';
     UsersListComponent,
     SidebarComponent,
     DropdownDirective,
-    DropdownCtrlDirective
+    DropdownCtrlDirective,
+    UniquePipe,
+    FilterPipe
   ],
   imports: [
     BrowserModule,

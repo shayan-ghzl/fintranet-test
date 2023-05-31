@@ -41,4 +41,13 @@ export class SidebarComponent implements OnInit{
     temp.setDate(temp.getDate() - 1);
     this.rangeDates = [new Date(), temp];
   }
+
+  ageChanged(target: HTMLInputElement){
+    if (!/^\d+$/.test(target.value.trim())) {
+      target.classList.add('is-invalid');
+      return;
+    }
+    target.classList.remove('is-invalid');
+
+  }
 }

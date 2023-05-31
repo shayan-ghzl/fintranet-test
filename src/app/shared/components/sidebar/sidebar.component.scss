@@ -6,11 +6,13 @@
     width: 300px;
     padding: 24px;
     background: var(--bs-gray-100);
-    z-index: 1;
+    z-index: 6;
     overflow: hidden;
+    overflow-y: auto;
     transition: 0.2s;
     transform: translateX(-100%);
     visibility: hidden;
+    user-select: none;
 }
 :host{
     &.show{
@@ -21,9 +23,8 @@
     }
     ::ng-deep{
         .p-inputtext {
-            font-size: 12px;
-            padding: 0.75em 0.75em;
-            border-radius: 6px;
+            font-size: 14px;
+            padding: 0.4em;
         }
           p-calendar.p-calendar-clearable .p-inputtext {
             padding-right: 2.5em;
@@ -142,10 +143,51 @@
     padding-bottom: 2px;
     border-bottom: 1px solid var(--bs-gray-400);
 }
+.dropdown, .age-operation{
+  margin-bottom: 16px;
+}
+
 .form-check-label, .dropdown-item{
     cursor: pointer;
 }
-.dropdown-menu.show{
-  display: block;
+.dropdown-menu{
+  max-height: 252px;
+  overflow: hidden;
+  overflow-y: auto;
+  
+  .show{
+    display: block;
+  }
 }
-.item-body{}
+
+.dropdown-item.search-input{
+  width: 200px;
+  --bs-dropdown-link-active-bg: transparent;
+  --bs-dropdown-link-hover-bg: transparent;
+  padding-bottom: 0.5rem;
+}
+
+.item-body{
+
+}
+
+::-webkit-scrollbar {
+  width: 7px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey; 
+  border-radius: 10px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #999; 
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}

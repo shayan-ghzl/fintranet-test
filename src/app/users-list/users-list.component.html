@@ -1,14 +1,14 @@
 <div class="component-container">
-    <ng-container *ngIf="(userList$ | async) as list">
-        <div class="user-list" *ngIf="list.length;else emptyTable">
+    <ng-container *ngIf="(userList$ | async | filter: tableSearchInput) as list;else loadingTemplate">
+        <div class="user-list" *ngIf="list.length;else emptyTableTemplate">
             <div class="table-toolbar">
                 <div class="input-group">
-                    <input type="text" class="form-control form-control-sm" placeholder="search..." #searchInput (input)="search(searchInput.value, list)">
+                    <input type="text" class="form-control form-control-sm" placeholder="search..." [(ngModel)]="tableSearchInput">
                 </div>
                 <div class="btn-group">
                     <button type="button" class="btn btn-sm btn-primary" (click)="openSidebar=!openSidebar">
                         <svg width="16" height="16"><use xlink:href="#filter"></use></svg>
-                        Filter Button
+                        Open/Close Filters
                     </button>
                 </div>
             </div>
@@ -42,10 +42,14 @@
             </div>
         </div>
     </ng-container>
-    <app-sidebar [openSidebar]="openSidebar"></app-sidebar>
-    <ng-template #emptyTable>
+    <ng-template #loadingTemplate>
+        <div class="spinner spinner-small"></div>
+    </ng-template>
+    <ng-template #emptyTableTemplate>
         <div class="empty-message">
             <h4>Table is empty</h4>
         </div>
     </ng-template>
+    <app-sidebar [openSidebar]="openSidebar"></app-sidebar>
 </div>
+
