@@ -1,0 +1,38 @@
+<div class="component-container" [formGroup]="ageFormGroup">
+    <div class="age-operation" formGroupName="operation">
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="equal-operation" formControlName="equal">
+        <label class="form-check-label" for="equal-operation">
+          equal to
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="greater-operation" formControlName="greater">
+        <label class="form-check-label" for="greater-operation">
+          greater than
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="smaller-operation" formControlName="smaller">
+        <label class="form-check-label" for="smaller-operation">
+          smaller than
+        </label>
+      </div>
+    </div>
+    <div class="dropdown">
+      <button class="btn btn-outline-secondary btn-sm dropdown-toggle" type="button" id="ageDropdown" [appDropdownCtrl]="dropdown" #dropdownCtrl="exportDropdownCtrl">
+        Age (selected item: {{ageFormGroup.controls['value'].value || 0}})
+      </button>
+      <ul class="dropdown-menu" aria-labelledby="ageDropdown" [appDropdown]="dropdownCtrl" #dropdown="exportDropdown" (dropdownShow)="onDropdownShow(ageSearch)">
+        <li class="dropdown-item search-input">
+          <input type="text" class="form-control form-control-sm" #ageSearch (input)="ageChanged(ageSearch)">
+        </li>
+        <li class="dropdown-item" *ngFor="let user of (users | unique: 'age' | search: ageSearch.value : ['age'])" (click)="selectAge(user.age, ageInput); dropdown.close();">{{user.age}}</li>
+      </ul>
+    </div>
+    <div>
+      <label for="age-input" class="form-label">Age:</label>
+      <input type="text" class="form-control form-control-sm" id="age-input" #ageInput (input)="ageChanged(ageInput)" (keyup.enter)="ageEnterPressed(ageInput.value)">
+      <small>hint: Enter a number and then press enter</small>
+    </div>
+</div>

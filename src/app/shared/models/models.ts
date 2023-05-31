@@ -1,18 +1,27 @@
-export enum AgeOperatin {
-    EQUAL = 1,
-    GREATER = 2,
-    SMALLER = 3
+export interface IAgeOperation{
+    equal: boolean;
+    greater: boolean;
+    smaller: boolean;
 }
+export interface IGender{
+    female: boolean;
+    male: boolean;
+    others: boolean;
+}
+export interface IAge{
+    operation: IAgeOperation,
+    value: number
+}
+export interface IEyeColor{
+    [key: string]:boolean
+}
+export type IRangeDate = [Date, Date] | [Date, null];
 export interface IFilter{
-        gender: string,
-        age:{
-            operation: AgeOperatin,
-            value: number
-        },
-        eyeColor: string,
-        birthDate: Date[]
+    gender: IGender,
+    age: IAge,
+    eyeColor: IEyeColor,
+    birthDate: IRangeDate
 }
-
 interface IBaseEntity{
     id:number;
 }

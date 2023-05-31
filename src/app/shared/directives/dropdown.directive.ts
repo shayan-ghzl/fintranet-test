@@ -1,4 +1,4 @@
-import { Directive, ElementRef, HostListener, Input, OnInit } from '@angular/core';
+import { Directive, ElementRef, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
 
 @Directive({
   selector: '[appDropdownCtrl]',
@@ -25,10 +25,22 @@ export class DropdownCtrlDirective {
   },
 })
 export class DropdownDirective implements OnInit {
-  
+  @Output() dropdownShow = new EventEmitter<boolean>();
   @Input('appDropdown') ctrl!: DropdownCtrlDirective;
   private target!: HTMLElement;
-  private isShow = false;
+
+  private _isShow = false;
+
+  private set isShow(value: boolean){
+    this._isShow = value;
+    if (value) {
+      this.dropdownShow.emit(true);
+    }
+  }
+
+  private get isShow(){
+    return this._isShow;
+  }
 
   constructor(private elementRef: ElementRef) { }
 

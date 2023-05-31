@@ -1,10 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { AppState } from 'src/app/state/app.state';
-import { userSelector } from 'src/app/state/selectors/user.selector';
-import { IFilter, IUser } from '../../models/models';
 import { filtersSelector } from 'src/app/state/selectors/filter.selector';
+import { userSelector } from 'src/app/state/selectors/user.selector';
+import { IFilter, IRangeDate, IUser } from '../../models/models';
+import { dateFilterActionUpdate, filtersActionSet } from 'src/app/state/actions/filter.action';
 
 @Component({
   selector: 'app-sidebar',
@@ -14,12 +15,13 @@ import { filtersSelector } from 'src/app/state/selectors/filter.selector';
       '[class.show]': 'openSidebar'
   }
 })
-export class SidebarComponent implements OnInit{
+export class SidebarComponent {
 
   userList$: Observable<IUser[]> =  this.store.select(userSelector);
-  filters$: Observable<IFilter> =  this.store.select(filtersSelector);
-  
-  rangeDates: Date[] = [];
+  filters$: Observable<IFilter> =  this.store.select(filtersSelector).pipe(
+    tap(console.log)
+  );
+
   _openSidebar = false;
 
   @Input() set openSidebar(value: boolean){
@@ -38,19 +40,7 @@ export class SidebarComponent implements OnInit{
   constructor(private store: Store<AppState>) { 
   }
 
-  ngOnInit(): void {
-    // set last 24 hours to datepicker
-    const temp = new Date();
-    temp.setDate(temp.getDate() - 1);
-    this.rangeDates = [new Date(), temp];
-  }
-
-  ageChanged(target: HTMLInputElement){
-    if (!/^\d+$/.test(target.value.trim())) {
-      target.classList.add('is-invalid');
-      return;
-    }
-    target.classList.remove('is-invalid');
-
+  calendarChanged(event: IRangeDate){
+    this.store.dispatch(dateFilterActionUpdate({dateFilter: event}));
   }
 }

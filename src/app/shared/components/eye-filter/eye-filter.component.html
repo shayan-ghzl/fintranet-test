@@ -1,0 +1,9 @@
+<div class="component-container" [formGroup]="eyeFormGroup">
+    <!-- <div class="form-check" *ngFor="let user of (users | unique: 'eyeColor')"> -->
+    <div class="form-check" *ngFor="let user of eyeColors">
+      <input class="form-check-input" type="checkbox" [attr.id]="user.eyeColor" [formControlName]="user.eyeColor">
+      <label class="form-check-label" [attr.for]="user.eyeColor">
+        {{user.eyeColor}}
+      </label>
+    </div>
+</div>

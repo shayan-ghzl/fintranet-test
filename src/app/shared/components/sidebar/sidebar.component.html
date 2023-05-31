@@ -1,87 +1,27 @@
 <div class="component-container shadow">
+  <ng-container *ngTemplateOutlet="sidebarTemplate;context:{$implicit: userList$ | async, filters: filters$ | async}">
+  </ng-container>
+</div>
+
+<ng-template #sidebarTemplate let-users let-filters="filters">
   <div class="menu-container">
     <ul class="menu-wrapper">
       <li>
         <strong class="item-header">Gender:</strong>
-        <div class="item-body">
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" id="female-gender">
-            <label class="form-check-label" for="female-gender">
-              Female
-            </label>
-          </div>
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" id="male-gender">
-            <label class="form-check-label" for="male-gender">
-              Male
-            </label>
-          </div>
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" id="others-gender">
-            <label class="form-check-label" for="others-gender">
-              Others and I prefer not to say
-            </label>
-          </div>
-        </div>
+        <app-gender-filter [filters]="filters"></app-gender-filter>
       </li>
       <li>
         <strong class="item-header">Age:</strong>
-        <div class="item-body">
-          <div class="age-operation">
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" id="equal-operation" checked>
-              <label class="form-check-label" for="equal-operation">
-                equal to
-              </label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" id="greater-operation">
-              <label class="form-check-label" for="greater-operation">
-                greater than
-              </label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" id="smaller-operation">
-              <label class="form-check-label" for="smaller-operation">
-                smaller than
-              </label>
-            </div>
-          </div>
-          <div class="dropdown">
-            <button class="btn btn-outline-secondary btn-sm dropdown-toggle" type="button" id="ageDropdown" [appDropdownCtrl]="dropdown" #dropdownCtrl="exportDropdownCtrl">
-              Age
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="ageDropdown" [appDropdown]="dropdownCtrl" #dropdown="exportDropdown">
-              <li class="dropdown-item search-input">
-                <input type="text" class="form-control form-control-sm" #ageSearch (input)="ageChanged(ageSearch)">
-              </li>
-              <li class="dropdown-item" *ngFor="let user of (userList$ | async | unique: 'age')">{{user.age}}</li>
-            </ul>
-          </div>
-          <div>
-            <label for="age-input" class="form-label">Age:</label>
-            <input type="text" class="form-control form-control-sm" id="age-input" #ageInput (input)="ageChanged(ageInput)">
-            <small>hint: Enter a number and then press enter</small>
-          </div>
-        </div>
+        <app-age-filter [filters]="filters" [users]="users"></app-age-filter>
       </li>
       <li>
         <strong class="item-header">Eye color:</strong>
-        <div class="item-body">
-          <div class="form-check" *ngFor="let user of (userList$ | async | unique: 'eyeColor')">
-            <input class="form-check-input" type="checkbox" [attr.id]="user.eyeColor">
-            <label class="form-check-label" [attr.for]="user.eyeColor">
-              {{user.eyeColor}}
-            </label>
-          </div>
-        </div>
+        <app-eye-filter [filters]="filters" [users]="users"></app-eye-filter>
       </li>
       <li>
         <strong class="item-header">Birth date:</strong>
-        <div>
-          <p-calendar [(ngModel)]="rangeDates" selectionMode="range" [readonlyInput]="true"></p-calendar>
-        </div>
+        <p-calendar [ngModel]="filters.birthDate" (ngModelChange)="calendarChanged($event)" selectionMode="range" [readonlyInput]="true"></p-calendar>
       </li>
     </ul>
   </div>
-</div>
+</ng-template>

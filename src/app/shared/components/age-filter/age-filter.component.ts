@@ -1,0 +1,76 @@
+import { Component, Input, OnDestroy } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import { EMPTY, Subscription, switchMap } from 'rxjs';
+import { ageFilterActionUpdate } from 'src/app/state/actions/filter.action';
+import { AppState } from 'src/app/state/app.state';
+import { IAge, IFilter, IUser } from '../../models/models';
+
+@Component({
+  selector: 'app-age-filter',
+  templateUrl: './age-filter.component.html',
+  styleUrls: ['./age-filter.component.scss']
+})
+export class AgeFilterComponent implements OnDestroy{
+
+  @Input({required: true}) filters!: IFilter;
+  @Input({required: true}) users!: IUser[];
+
+  ageFormGroup = new FormGroup({
+    operation: new FormGroup({
+      equal: new FormControl({ value: false, disabled: false }),
+      greater: new FormControl({ value: false, disabled: false }),
+      smaller: new FormControl({ value: false, disabled: false }),
+    }),
+    value: new FormControl({ value: 0, disabled: false }),
+  });
+
+  subscription = new Subscription();
+  constructor(
+    private store:Store<AppState>
+  ){}
+
+  ngOnInit(): void {
+    this.ageFormGroup.setValue(this.filters.age as IAge, { emitEvent: false });
+    this.subscription.add(
+      this.ageFormGroup.controls.operation.valueChanges.pipe(
+        switchMap((value) => {
+          this.store.dispatch(ageFilterActionUpdate({age: value as IAge}));
+          return EMPTY;
+        })
+      ).subscribe()
+    );
+  }
+
+  onDropdownShow(target: HTMLInputElement){
+    setTimeout(() => {
+      target.value = '';
+      target.classList.remove('is-invalid');
+      target.focus(); 
+    }); 
+  }
+
+  ageChanged(target: HTMLInputElement){
+    if (!/^\d+$/.test(target.value.trim())) {
+      target.classList.add('is-invalid');
+      return;
+    }
+    target.classList.remove('is-invalid');
+  }
+
+  ageEnterPressed(age: string){
+    this.ageFormGroup.patchValue({'value': +age}, { emitEvent: false });
+    this.store.dispatch(ageFilterActionUpdate({age: this.ageFormGroup.value as IAge}));
+  }
+
+  selectAge(age: number, ageInput: HTMLInputElement){
+    ageInput.value = age.toString();
+    ageInput.classList.remove('is-invalid');
+    this.ageFormGroup.patchValue({'value': age}, { emitEvent: false });
+    this.store.dispatch(ageFilterActionUpdate({age: this.ageFormGroup.value as IAge}));
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
+}

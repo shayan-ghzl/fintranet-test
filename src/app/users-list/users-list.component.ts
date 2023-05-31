@@ -27,6 +27,4 @@ export class UsersListComponent {
       store.dispatch(userActionStartEffect());
   }
 
-
-
 }

@@ -1,21 +1,25 @@
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { CalendarModule } from 'primeng/calendar';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { AgeFilterComponent } from './shared/components/age-filter/age-filter.component';
+import { EyeFilterComponent } from './shared/components/eye-filter/eye-filter.component';
+import { GenderFilterComponent } from './shared/components/gender-filter/gender-filter.component';
 import { SidebarComponent } from './shared/components/sidebar/sidebar.component';
+import { DropdownCtrlDirective, DropdownDirective } from './shared/directives/dropdown.directive';
+import { FilterPipe } from './shared/pipes/filter.pipe';
+import { UniquePipe } from './shared/pipes/unique.pipe';
+import { UserEffects } from './state/effects/user.effect';
+import { filtersReducer } from './state/reducers/filter.reducer';
 import { userReducer } from './state/reducers/user.reducer';
 import { UsersListComponent } from './users-list/users-list.component';
-import { DropdownCtrlDirective, DropdownDirective } from './shared/directives/dropdown.directive';
-import { EffectsModule } from '@ngrx/effects';
-import { UserEffects } from './state/effects/user.effect';
-import { UniquePipe } from './shared/pipes/unique.pipe';
-import { FilterPipe } from './shared/pipes/filter.pipe';
-import { filtersReducer } from './state/reducers/filter.reducer';
+import { SearchPipe } from './shared/pipes/search.pipe';
 
 @NgModule({
   declarations: [
@@ -25,7 +29,11 @@ import { filtersReducer } from './state/reducers/filter.reducer';
     DropdownDirective,
     DropdownCtrlDirective,
     UniquePipe,
-    FilterPipe
+    FilterPipe,
+    GenderFilterComponent,
+    AgeFilterComponent,
+    EyeFilterComponent,
+    SearchPipe
   ],
   imports: [
     BrowserModule,
@@ -38,7 +46,8 @@ import { filtersReducer } from './state/reducers/filter.reducer';
     }),
     EffectsModule.forRoot([UserEffects]),
     CalendarModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
