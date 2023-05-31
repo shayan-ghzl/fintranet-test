@@ -15,6 +15,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { UserEffects } from './state/effects/user.effect';
 import { UniquePipe } from './shared/pipes/unique.pipe';
 import { FilterPipe } from './shared/pipes/filter.pipe';
+import { filtersReducer } from './state/reducers/filter.reducer';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { FilterPipe } from './shared/pipes/filter.pipe';
     HttpClientModule,
     StoreModule.forRoot({
       users: userReducer,
+      filters: filtersReducer,
     }),
     EffectsModule.forRoot([UserEffects]),
     CalendarModule,

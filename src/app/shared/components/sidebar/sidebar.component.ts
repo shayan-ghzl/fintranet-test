@@ -3,7 +3,8 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { AppState } from 'src/app/state/app.state';
 import { userSelector } from 'src/app/state/selectors/user.selector';
-import { IUser } from '../../models/models';
+import { IFilter, IUser } from '../../models/models';
+import { filtersSelector } from 'src/app/state/selectors/filter.selector';
 
 @Component({
   selector: 'app-sidebar',
@@ -16,6 +17,8 @@ import { IUser } from '../../models/models';
 export class SidebarComponent implements OnInit{
 
   userList$: Observable<IUser[]> =  this.store.select(userSelector);
+  filters$: Observable<IFilter> =  this.store.select(filtersSelector);
+  
   rangeDates: Date[] = [];
   _openSidebar = false;
 

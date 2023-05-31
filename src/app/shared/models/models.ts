@@ -1,3 +1,18 @@
+export enum AgeOperatin {
+    EQUAL = 1,
+    GREATER = 2,
+    SMALLER = 3
+}
+export interface IFilter{
+        gender: string,
+        age:{
+            operation: AgeOperatin,
+            value: number
+        },
+        eyeColor: string,
+        birthDate: Date[]
+}
+
 interface IBaseEntity{
     id:number;
 }

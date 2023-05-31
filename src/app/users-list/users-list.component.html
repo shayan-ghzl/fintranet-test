@@ -1,9 +1,9 @@
 <div class="component-container">
     <ng-container *ngIf="(userList$ | async | filter: tableSearchInput) as list;else loadingTemplate">
-        <div class="user-list" *ngIf="list.length;else emptyTableTemplate">
+        <div class="user-list">
             <div class="table-toolbar">
                 <div class="input-group">
-                    <input type="text" class="form-control form-control-sm" placeholder="search..." [(ngModel)]="tableSearchInput">
+                    <input type="text" class="form-control form-control-sm" placeholder="search..." #tableSearchFilter [(ngModel)]="tableSearchInput">
                 </div>
                 <div class="btn-group">
                     <button type="button" class="btn btn-sm btn-primary" (click)="openSidebar=!openSidebar">
@@ -12,7 +12,7 @@
                     </button>
                 </div>
             </div>
-            <div class="table-responsive">
+            <div class="table-responsive" *ngIf="list.length;else emptyTableTemplate">
                 <table class="table table-bordered table-sm table-striped">
                     <thead>
                         <tr>
@@ -47,7 +47,7 @@
     </ng-template>
     <ng-template #emptyTableTemplate>
         <div class="empty-message">
-            <h4>Table is empty</h4>
+            <h4>Without result!</h4>
         </div>
     </ng-template>
     <app-sidebar [openSidebar]="openSidebar"></app-sidebar>

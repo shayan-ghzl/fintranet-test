@@ -12,7 +12,6 @@ export class UserEffects {
             ofType(userActionStartEffect),
             mergeMap(() => this.storageService.getUsers()
                 .pipe(
-                    tap(console.log),
                     map(response =>
                         usersActionSet({ users: response.users })
                     ),

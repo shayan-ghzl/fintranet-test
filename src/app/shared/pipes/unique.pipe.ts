@@ -6,6 +6,13 @@ import { IUser } from '../models/models';
 })
 export class UniquePipe implements PipeTransform {
 
+  transform(value: IUser[] | null, predicate: string): IUser[] | null {
+    if(value){
+      return this.uniqBy(value, predicate);
+    }
+    return value;
+  }
+  
   uniqBy(arr: IUser[], predicate: string) {
     if (!Array.isArray(arr)) { return []; }
     
@@ -18,13 +25,6 @@ export class UniquePipe implements PipeTransform {
       .values();
    
     return [...pickedObjects];
-  };
-
-  transform(value: IUser[] | null, predicate: string): IUser[] | null {
-    if(value){
-      return this.uniqBy(value, predicate);
-    }
-    return value;
   }
-
+  
 }
