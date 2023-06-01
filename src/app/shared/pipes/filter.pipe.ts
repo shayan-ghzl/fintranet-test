@@ -44,9 +44,9 @@ export class FilterPipe implements PipeTransform {
     if (list.length === 0 || this.filters.age.value === 0) {
       return list;
     }
-    let temp: IUser[] = [...list];
+    let temp: IUser[] = [];
     if (this.filters.age.operation.equal) {
-       temp = temp.concat(list.filter(x => this.filters.age.value === x.age));
+      temp = list.filter(x => this.filters.age.value === x.age);
     }
     if (this.filters.age.operation.greater) {
       temp = temp.concat(list.filter(x => this.filters.age.value < x.age));
