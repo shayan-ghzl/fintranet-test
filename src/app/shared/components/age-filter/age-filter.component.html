@@ -27,7 +27,7 @@
         <li class="dropdown-item search-input">
           <input type="text" class="form-control form-control-sm" #ageSearch (input)="ageChanged(ageSearch)">
         </li>
-        <li class="dropdown-item" *ngFor="let user of (users | unique: 'age' | search: ageSearch.value : ['age'])" (click)="selectAge(user.age, ageInput); dropdown.close();">{{user.age}}</li>
+        <li class="dropdown-item" *ngFor="let user of (users | unique: 'age' | filter: ageSearch.value : ['age'])" (click)="selectAge(user.age, ageInput); dropdown.close();">{{user.age}}</li>
       </ul>
     </div>
     <div>

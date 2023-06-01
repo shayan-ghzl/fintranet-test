@@ -19,7 +19,6 @@ import { UserEffects } from './state/effects/user.effect';
 import { filtersReducer } from './state/reducers/filter.reducer';
 import { userReducer } from './state/reducers/user.reducer';
 import { UsersListComponent } from './users-list/users-list.component';
-import { SearchPipe } from './shared/pipes/search.pipe';
 
 @NgModule({
   declarations: [
@@ -32,8 +31,7 @@ import { SearchPipe } from './shared/pipes/search.pipe';
     FilterPipe,
     GenderFilterComponent,
     AgeFilterComponent,
-    EyeFilterComponent,
-    SearchPipe
+    EyeFilterComponent
   ],
   imports: [
     BrowserModule,

@@ -8,22 +8,25 @@ export class FilterPipe implements PipeTransform {
 
   filters!: IFilter;
 
-  transform(value: IUser[] | null, inputVal: string, fields: string[], filters: IFilter | null): IUser[] | null {
-    if(value && filters){
-      this.filters = filters;
-      return this.search(inputVal, value, fields);
+  transform(value: IUser[] | null, inputVal: string, fields: string[], filters?: IFilter | null): IUser[] | null {
+    if(value){
+      return this.search(inputVal, value, fields, filters);
     }
     return value;
   }
 
-  search(value: string, list: IUser[], fields: string[]){
+  search(value: string, list: IUser[], fields: string[], filters?: IFilter | null){
     const keyword = value.trim().toLowerCase();
     let temp: IUser[] = [];
     temp = list.filter(x => this.searchInFields(x, fields).includes(keyword));
-    temp = this.genderSearch(temp);
-    temp = this.ageSearch(temp);
-    temp = this.eyeColorSearch(temp);
-    temp = this.birthDateSearch(temp);
+    if(filters){
+      this.filters = filters;
+      temp = this.genderSearch(temp);
+      temp = this.ageSearch(temp);
+      temp = this.eyeColorSearch(temp);
+      temp = this.birthDateSearch(temp);
+      return temp;
+    }
     return temp;
   }
 
