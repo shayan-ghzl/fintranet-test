@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { map, mergeMap, tap } from 'rxjs';
-import { StorageService } from 'src/app/shared/services/storage.service';
+import { ApiService } from 'src/app/shared/services/api.service';
 import { userActionStartEffect, usersActionSet } from '../actions/user.action';
 import { dateFilterActionUpdate } from '../actions/filter.action';
 import { AppState } from '../app.state';
@@ -14,7 +14,7 @@ export class UserEffects {
     startUser$ = createEffect(() => {
         return this.action$.pipe(
             ofType(userActionStartEffect),
-            mergeMap(() => this.storageService.getUsers()
+            mergeMap(() => this.ApiService.getUsers()
                 .pipe(
                     tap(response => {
                         this.store.dispatch(usersActionSet({ users: response.users }));
@@ -35,7 +35,7 @@ export class UserEffects {
     }, { dispatch: false });
 
     constructor(
-        private storageService: StorageService, 
+        private ApiService: ApiService, 
         private action$: Actions,
         private store: Store<AppState>
         ) { }

@@ -25,7 +25,7 @@ export class DropdownCtrlDirective {
   },
 })
 export class DropdownDirective implements OnInit {
-  @Output() dropdownShow = new EventEmitter<boolean>();
+  @Output() dropdownShow = new EventEmitter();
   @Input('appDropdown') ctrl!: DropdownCtrlDirective;
   private target!: HTMLElement;
 
@@ -34,7 +34,7 @@ export class DropdownDirective implements OnInit {
   private set isShow(value: boolean){
     this._isShow = value;
     if (value) {
-      this.dropdownShow.emit(true);
+      this.dropdownShow.emit();
     }
   }
 
