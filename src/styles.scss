@@ -7,6 +7,8 @@
 @import "./assets/css/bootstrap-table.css";
 @import "./assets/css/spinner.css";
 @import "./assets/css/utility.css";
+
+// change primeng component font-family
 .p-component,
 .p-link,
 .p-autocomplete .p-autocomplete-multiple-container .p-autocomplete-input-token input,
@@ -20,23 +22,24 @@
   cursor: pointer;
 }
 
+// change scrollbar style
 ::-webkit-scrollbar {
     width: 7px;
   }
   
-  /* Track */
-  ::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 5px grey; 
-    border-radius: 10px;
-  }
-   
-  /* Handle */
-  ::-webkit-scrollbar-thumb {
-    background: #999; 
-    border-radius: 10px;
-  }
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey; 
+  border-radius: 10px;
+}
   
-  /* Handle on hover */
-  ::-webkit-scrollbar-thumb:hover {
-    background: #555; 
-  }
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #999; 
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}

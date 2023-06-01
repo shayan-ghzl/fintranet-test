@@ -23,6 +23,7 @@
         }
     }
     ::ng-deep{
+           // convert primeng calender style rem unit to em
           .p-inputtext {
               font-size: 14px;
               padding: 0.4em;
