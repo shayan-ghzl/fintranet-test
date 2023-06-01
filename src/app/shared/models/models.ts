@@ -13,7 +13,7 @@ export interface IAge{
     value: number
 }
 export interface IEyeColor{
-    [key: string]:boolean
+    [key: string]: boolean
 }
 export type IRangeDate = [Date, Date] | [Date, null];
 export interface IFilter{
@@ -23,7 +23,7 @@ export interface IFilter{
     birthDate: IRangeDate
 }
 interface IBaseEntity{
-    id:number;
+    id: number;
 }
 export interface IBaseUser {
     firstName: string;
@@ -36,3 +36,9 @@ export interface IBaseUser {
     birthDate: string;
 }
 export interface IUser extends IBaseUser, IBaseEntity{ }
+export interface IEntity {
+    limit: number;
+    skip: number;
+    total: number;
+    users: IUser[];
+}

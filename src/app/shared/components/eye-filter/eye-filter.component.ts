@@ -1,53 +1,45 @@
-import { AfterViewInit, Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
-import { IEyeColor, IFilter, IUser } from '../../models/models';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { AppState } from 'src/app/state/app.state';
 import { Store } from '@ngrx/store';
-import { EMPTY, Subscription, switchMap } from 'rxjs';
 import { eyeColorFilterActionUpdate } from 'src/app/state/actions/filter.action';
+import { AppState } from 'src/app/state/app.state';
+import { IEyeColor, IFilter, IUser } from '../../models/models';
 
 @Component({
   selector: 'app-eye-filter',
   templateUrl: './eye-filter.component.html',
   styleUrls: ['./eye-filter.component.scss']
 })
-export class EyeFilterComponent implements OnInit, OnChanges{
+export class EyeFilterComponent implements OnChanges{
   @Input({required: true}) filters!: IFilter;
-  @Input({required: true}) users!: IUser[];
+  @Input({required: true}) users!: IUser[] | null;
 
   eyeColors: IUser[] = [];
   eyeFormGroup = new FormGroup({});
-  subscription = new Subscription();
 
   constructor(
-    private store:Store<AppState>
-  ){}
+    private store: Store<AppState>
+  ){ }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.buildForm();
+    if (changes['users'] && changes['users'].currentValue) {
+      this.buildForm();
+    }
   }
 
   buildForm() {
     const formGroupObject: any = {};
-    this.eyeColors = this.uniqBy(this.users, 'eyeColor');
+    this.eyeColors = this.uniqBy(this.users!, 'eyeColor');
     if(this.eyeColors.length){
       this.eyeColors.forEach((user: IUser) => {
-        formGroupObject[user.eyeColor] = new FormControl({ value: false, disabled: false });
+        formGroupObject[user.eyeColor] = new FormControl({ value: this.filters.eyeColor[user.eyeColor], disabled: false });
       });
       this.eyeFormGroup = new FormGroup(formGroupObject);
     }
   }
-
-  ngOnInit(): void {
-    this.eyeFormGroup.setValue(this.filters.eyeColor as IEyeColor, { emitEvent: false });
-    this.subscription.add(
-      this.eyeFormGroup.valueChanges.pipe(
-        switchMap((value) => {
-          this.store.dispatch(eyeColorFilterActionUpdate({eyeColor: value as IEyeColor}));
-          return EMPTY;
-        })
-      ).subscribe()
-    );
+  
+  inputChanged(){
+    this.store.dispatch(eyeColorFilterActionUpdate({eyeColor: this.eyeFormGroup.value as IEyeColor}));
   }
 
   uniqBy(arr: IUser[], predicate: string) {
@@ -64,7 +56,4 @@ export class EyeFilterComponent implements OnInit, OnChanges{
     return [...pickedObjects];
   }
 
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
-  }
 }

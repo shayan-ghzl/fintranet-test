@@ -6,11 +6,11 @@ import { IFilter, IUser } from '../models/models';
 })
 export class FilterPipe implements PipeTransform {
 
-  filters!: IFilter | null;
+  filters!: IFilter;
 
   transform(value: IUser[] | null, inputVal: string, fields: string[], filters: IFilter | null): IUser[] | null {
-    this.filters = filters;
-    if(value){
+    if(value && filters){
+      this.filters = filters;
       return this.search(inputVal, value, fields);
     }
     return value;
@@ -28,7 +28,7 @@ export class FilterPipe implements PipeTransform {
   }
 
   genderSearch(list: IUser[]){
-    if (this.filters === null || list.length === 0) {
+    if (list.length === 0) {
       return list;
     }
     const temp: string[] = [];
@@ -41,24 +41,24 @@ export class FilterPipe implements PipeTransform {
   }
 
   ageSearch(list: IUser[]){
-    if (this.filters === null || list.length === 0 || this.filters!.age.value === 0) {
+    if (list.length === 0 || this.filters.age.value === 0) {
       return list;
     }
-    let temp: IUser[] = [];
-    if (this.filters!.age.operation.equal) {
-       temp = list.filter(x => this.filters!.age.value === x.age);
+    let temp: IUser[] = [...list];
+    if (this.filters.age.operation.equal) {
+       temp = temp.concat(list.filter(x => this.filters.age.value === x.age));
     }
-    if (this.filters!.age.operation.greater) {
-      temp = temp.concat(list.filter(x => this.filters!.age.value < x.age));
+    if (this.filters.age.operation.greater) {
+      temp = temp.concat(list.filter(x => this.filters.age.value < x.age));
     }
-    if (this.filters!.age.operation.smaller) {
-      temp = temp.concat(list.filter(x => this.filters!.age.value > x.age));
+    if (this.filters.age.operation.smaller) {
+      temp = temp.concat(list.filter(x => this.filters.age.value > x.age));
     }
     return temp;
   }
 
   eyeColorSearch(list: IUser[]){
-    if (this.filters === null || list.length === 0) {
+    if (list.length === 0) {
       return list;
     }
     const temp: string[] = [];
@@ -71,12 +71,12 @@ export class FilterPipe implements PipeTransform {
   }
 
   birthDateSearch(list: IUser[]){
-    if (this.filters === null || list.length === 0) {
+    if (list.length === 0) {
       return list;
     }
-    let condition = (user: IUser) => (new Date(user.birthDate) === this.filters!.birthDate[0]);
-    if (this.filters!.birthDate[1] !== null) {
-      condition = (user: IUser) => (new Date(user.birthDate) >= this.filters!.birthDate[0] && new Date(user.birthDate) <= this.filters!.birthDate[1]!);
+    let condition = (user: IUser) => (new Date(user.birthDate) === this.filters.birthDate[0]);
+    if (this.filters.birthDate[1] !== null) {
+      condition = (user: IUser) => (new Date(user.birthDate) >= this.filters.birthDate[0] && new Date(user.birthDate) <= this.filters.birthDate[1]!);
     }
     return list.filter(x => condition(x));
   }

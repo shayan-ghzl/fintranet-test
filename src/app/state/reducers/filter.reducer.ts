@@ -1,6 +1,6 @@
 import { createReducer, on } from "@ngrx/store";
 import { IFilter } from "src/app/shared/models/models";
-import { ageFilterActionUpdate, ageOperationFilterActionUpdate, dateFilterActionUpdate, filtersActionSet, genderFilterActionUpdate } from "../actions/filter.action";
+import { ageFilterActionUpdate, ageOperationFilterActionUpdate, dateFilterActionUpdate, eyeColorFilterActionUpdate, filtersActionSet, genderFilterActionUpdate } from "../actions/filter.action";
 
 // set last 24 hours to datepicker
 const temp = new Date();
@@ -30,5 +30,6 @@ export const filtersReducer = createReducer(
     on(genderFilterActionUpdate, (state, prop) => ({...state, gender: prop.gender})),
     on(dateFilterActionUpdate, (state, prop) => ({...state, birthDate: prop.dateFilter})),
     on(ageFilterActionUpdate, (state, prop) => ({...state, age: prop.age})),
+    on(eyeColorFilterActionUpdate, (state, prop) => ({...state, eyeColor: prop.eyeColor})),
     on(ageOperationFilterActionUpdate, (state, prop) => ({...state, age: {...state.age, operation: prop.operation}})),
 )

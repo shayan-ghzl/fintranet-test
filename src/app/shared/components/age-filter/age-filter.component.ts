@@ -14,7 +14,7 @@ import { IAge, IAgeOperation, IFilter, IUser } from '../../models/models';
 export class AgeFilterComponent implements OnDestroy{
 
   @Input({required: true}) filters!: IFilter;
-  @Input({required: true}) users!: IUser[];
+  @Input({required: true}) users!: IUser[] | null;
 
   ageFormGroup = new FormGroup({
     operation: new FormGroup({
