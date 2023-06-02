@@ -34,7 +34,7 @@
     <div>
       <label for="age-input" class="form-label">Age:</label>
       <input type="text" class="form-control form-control-sm" id="age-input" #ageInput (input)="ageChanged(ageInput)" (keyup.enter)="ageEnterPressed(ageInput.value)" [value]="ageFormGroup.controls.value.value">
-      <small>hint: Enter a number and then press enter</small>
+      <small>hint: Type a number and then press enter</small>
       <small>hint: Zero(0) means all</small>
     </div>
 </div>
