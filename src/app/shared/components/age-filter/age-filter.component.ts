@@ -47,7 +47,7 @@ export class AgeFilterComponent implements OnDestroy{
     target.classList.remove('is-invalid');
     setTimeout(() => {
       target.focus(); 
-    }); 
+    }, 0); 
   }
 
   ageChanged(target: HTMLInputElement){

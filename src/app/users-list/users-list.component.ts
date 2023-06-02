@@ -16,7 +16,12 @@ export class UsersListComponent {
 
   @ViewChild('tableSearchFilter') set tableSearchFilter(value: ElementRef<HTMLInputElement>){
     if(value){
-      value.nativeElement.focus();
+      // in development mode change detection will run twice, we must not update view in afterviewinit lifecycle hook
+      // because it is the last step of cycle and if you updated the view in this hook so change detection should run 
+      // again, if it is neccessary to update the view in this hook, it is better to do it in a async way like below:
+      setTimeout(() => {
+        value.nativeElement.focus();
+      }, 0);
     }
   }
 
