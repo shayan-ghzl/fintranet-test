@@ -1,51 +1,49 @@
-import { Directive, ElementRef, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
-
-@Directive({
-  selector: '[appDropdownCtrl]',
-  exportAs: 'exportDropdownCtrl',
-})
-export class DropdownCtrlDirective {
-  
-  @Input('appDropdownCtrl') dropdown!: DropdownDirective;
-  buttonCtrl!: HTMLElement;
-
-  constructor(private elementRef: ElementRef) {
-    this.buttonCtrl = elementRef.nativeElement;
-   }
-
-  @HostListener("click")
-  toggle() { this.dropdown.toggle(); }
-}
+import { Directive, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, Renderer2 } from '@angular/core';
 
 @Directive({
   selector: '[appDropdown]',
-  exportAs: 'exportDropdown',
+  exportAs: 'exportAppDropdown',
   host: {
     '[class.show]': 'isShow',
+    // '[style.display]': "'inline-block'",
   },
 })
-export class DropdownDirective implements OnInit {
-  @Output() dropdownShow = new EventEmitter();
-  @Input('appDropdown') ctrl!: DropdownCtrlDirective;
-  private target!: HTMLElement;
+export class DropdownDirective implements OnInit, OnDestroy {
 
-  private _isShow = false;
+  @Input() closeOnOutsideClick = true;
+  @Output() dropdownShowed = new EventEmitter();
+  @Output() dropdownClosed = new EventEmitter();
 
-  private set isShow(value: boolean){
-    this._isShow = value;
-    if (value) {
-      this.dropdownShow.emit();
+  documentClickListener: any;
+
+  constructor(
+    private elem: ElementRef,
+    private renderer: Renderer2
+  ) {
+  }
+
+  ngOnInit(): void {
+    // add listener conditionally
+    if (this.closeOnOutsideClick) {
+      this.documentClickListener = this.renderer.listen('document', 'click', (event: MouseEvent) => {
+        if (!this.elem.nativeElement.contains(event.target)) {
+          this.close();
+        }
+      });
     }
   }
 
-  private get isShow(){
-    return this._isShow;
+  private _isShow = false;
+  private set isShow(value: boolean){
+    this._isShow = value;
+    if (value) {
+      this.dropdownShowed.emit();
+    }else{
+      this.dropdownClosed.emit();
+    }
   }
-
-  constructor(private elementRef: ElementRef) { }
-
-  ngOnInit() {
-    this.target = this.elementRef.nativeElement;
+  get isShow(){
+    return this._isShow;
   }
 
   open() {
@@ -60,14 +58,18 @@ export class DropdownDirective implements OnInit {
     this.isShow = !this.isShow;
   }
 
-  get isOpen() {
-    return this.isShow;
-  }
+  // @HostListener('document:click', ['$event.target'])
+  // detectClickOutside(target: HTMLElement) {
+  //   if (!this.elem.nativeElement.contains(target)) {
+  //     this.close();
+  //   }
+  // }
 
-  @HostListener('document:click', ['$event', '$event.target'])
-  detectClickOutside(event: MouseEvent, target: HTMLElement) {
-    if (!this.target.contains(target) && !this.ctrl.buttonCtrl.contains(target)) {
-      this.close();
+  ngOnDestroy(): void {
+    // remove listener if exist
+    if (this.documentClickListener) {
+      this.documentClickListener();
     }
   }
+
 }

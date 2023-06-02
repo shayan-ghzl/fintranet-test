@@ -19,15 +19,16 @@
         </label>
       </div>
     </div>
-    <div class="dropdown">
-      <button class="btn btn-outline-secondary btn-sm dropdown-toggle" type="button" id="ageDropdown" [appDropdownCtrl]="dropdown" #dropdownCtrl="exportDropdownCtrl">
+    <div class="dropdown" appDropdown #exportedAppDropdown="exportAppDropdown" (dropdownShowed)="onDropdownShow(ageSearch)">
+      <button class="btn btn-outline-secondary btn-sm dropdown-toggle" type="button" id="ageDropdown" [attr.aria-expanded]="exportedAppDropdown.isShow" (click)="exportedAppDropdown.toggle()">
         Age (selected item: {{ageFormGroup.controls['value'].value || 0}})
       </button>
-      <ul class="dropdown-menu" aria-labelledby="ageDropdown" [appDropdown]="dropdownCtrl" #dropdown="exportDropdown" (dropdownShow)="onDropdownShow(ageSearch)">
+      <ul class="dropdown-menu" aria-labelledby="ageDropdown">
         <li class="dropdown-item search-input">
           <input type="text" class="form-control form-control-sm" #ageSearch (input)="ageChanged(ageSearch)">
         </li>
-        <li class="dropdown-item" *ngFor="let user of (users | unique: 'age' | filter: ageSearch.value : ['age'])" (click)="selectAge(user.age, ageInput); dropdown.close();">{{user.age}}</li>
+        <li><hr class="dropdown-divider"></li>
+        <li class="dropdown-item" *ngFor="let user of (users | unique: 'age' | filter: ageSearch.value : ['age'])" (click)="selectAge(user.age, ageInput); exportedAppDropdown.close();">{{user.age}}</li>
       </ul>
     </div>
     <div>

@@ -12,7 +12,7 @@ import { AgeFilterComponent } from './shared/components/age-filter/age-filter.co
 import { EyeFilterComponent } from './shared/components/eye-filter/eye-filter.component';
 import { GenderFilterComponent } from './shared/components/gender-filter/gender-filter.component';
 import { SidebarComponent } from './shared/components/sidebar/sidebar.component';
-import { DropdownCtrlDirective, DropdownDirective } from './shared/directives/dropdown.directive';
+import { DropdownDirective } from './shared/directives/dropdown.directive';
 import { FilterPipe } from './shared/pipes/filter.pipe';
 import { UniquePipe } from './shared/pipes/unique.pipe';
 import { UserEffects } from './state/effects/user.effect';
@@ -26,7 +26,6 @@ import { UsersListComponent } from './users-list/users-list.component';
     UsersListComponent,
     SidebarComponent,
     DropdownDirective,
-    DropdownCtrlDirective,
     UniquePipe,
     FilterPipe,
     GenderFilterComponent,

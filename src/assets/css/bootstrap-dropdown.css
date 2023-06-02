@@ -6,6 +6,7 @@
 .dropup-center,
 .dropdown-center {
   position: relative;
+  display: inline-block;
 }
 
 .dropdown-toggle {
@@ -67,6 +68,10 @@
   border: var(--bs-dropdown-border-width) solid var(--bs-dropdown-border-color);
   border-radius: var(--bs-dropdown-border-radius);
 }
+.dropdown.show .dropdown-menu{
+  display: block;
+}
+
 .dropdown-menu[data-bs-popper] {
   top: 100%;
   left: 0;
@@ -263,6 +268,7 @@
   text-align: inherit;
   text-decoration: none;
   white-space: nowrap;
+  cursor: pointer;
   background-color: transparent;
   border: 0;
 }

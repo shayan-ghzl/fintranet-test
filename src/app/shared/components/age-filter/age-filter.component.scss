@@ -1,32 +1,21 @@
-.dropdown, .age-operation{
-    margin-bottom: 16px;
-}
-  
-.form-check-label, .dropdown-item{
-    cursor: pointer;
-}
-
-.dropdown-menu{
-    max-height: 252px;
-    overflow: hidden;
-    overflow-y: auto;
-    
-    .show{
-        display: block;
-    }
-}
-
-.dropdown-item.search-input{
-    width: 200px;
-    --bs-dropdown-link-active-bg: transparent;
-    --bs-dropdown-link-hover-bg: transparent;
-    padding-bottom: 0.5rem;
+.age-operation, .dropdown{
+    margin-bottom: 12px;
 }
 .dropdown-toggle{
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     max-width: 200px;
+}
+.dropdown-menu{
+    max-height: 252px;
+    overflow: hidden auto;
+}
+.dropdown-item.search-input{
+    width: 200px;
+    --bs-dropdown-link-active-bg: transparent;
+    --bs-dropdown-link-hover-bg: transparent;
+    padding-bottom: var(--bs-dropdown-item-padding-y);
 }
 small{
     display: block;
