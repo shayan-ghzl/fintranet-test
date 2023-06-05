@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { eyeColorFilterActionUpdate } from 'src/app/state/actions/filter.action';
@@ -8,7 +8,8 @@ import { IEyeColor, IFilter, IUser } from '../../models/models';
 @Component({
   selector: 'app-eye-filter',
   templateUrl: './eye-filter.component.html',
-  styleUrls: ['./eye-filter.component.scss']
+  styleUrls: ['./eye-filter.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EyeFilterComponent implements OnChanges{
   @Input({required: true}) filters!: IFilter;

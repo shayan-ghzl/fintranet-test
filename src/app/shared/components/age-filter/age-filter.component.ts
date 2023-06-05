@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { EMPTY, Subscription, switchMap } from 'rxjs';
@@ -9,7 +9,8 @@ import { IAge, IAgeOperation, IFilter, IUser } from '../../models/models';
 @Component({
   selector: 'app-age-filter',
   templateUrl: './age-filter.component.html',
-  styleUrls: ['./age-filter.component.scss']
+  styleUrls: ['./age-filter.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AgeFilterComponent implements OnDestroy{
 
@@ -26,6 +27,7 @@ export class AgeFilterComponent implements OnDestroy{
   });
 
   subscription = new Subscription();
+
   constructor(
     private store:Store<AppState>
   ){}

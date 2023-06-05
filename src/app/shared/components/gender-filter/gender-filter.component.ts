@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { EMPTY, Subscription, switchMap } from 'rxjs';
@@ -9,7 +9,8 @@ import { IFilter, IGender } from '../../models/models';
 @Component({
   selector: 'app-gender-filter',
   templateUrl: './gender-filter.component.html',
-  styleUrls: ['./gender-filter.component.scss']
+  styleUrls: ['./gender-filter.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class GenderFilterComponent implements OnInit, OnDestroy{
 
@@ -22,6 +23,7 @@ export class GenderFilterComponent implements OnInit, OnDestroy{
   });
 
   subscription = new Subscription();
+
   constructor(
     private store:Store<AppState>
   ){}

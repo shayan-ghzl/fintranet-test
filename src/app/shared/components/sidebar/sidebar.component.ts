@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { dateFilterActionUpdate } from 'src/app/state/actions/filter.action';
@@ -13,7 +13,8 @@ import { IFilter, IRangeDate, IUser } from '../../models/models';
   styleUrls: ['./sidebar.component.scss'],
   host: {
       '[class.show]': 'openSidebar'
-  }
+  },
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SidebarComponent {
 
