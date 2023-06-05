@@ -47,9 +47,10 @@ export class AgeFilterComponent implements OnDestroy{
   onDropdownShow(target: HTMLInputElement){
     target.value = '';
     target.classList.remove('is-invalid');
-    setTimeout(() => {
-      target.focus(); 
-    }, 0); 
+    target.focus(); 
+    // setTimeout(() => {
+    //   target.focus(); 
+    // }, 0); 
   }
 
   ageChanged(target: HTMLInputElement){

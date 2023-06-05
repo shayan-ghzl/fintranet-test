@@ -1,4 +1,4 @@
-import { Directive, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, Renderer2 } from '@angular/core';
+import { ChangeDetectorRef, Directive, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, Renderer2 } from '@angular/core';
 
 @Directive({
   selector: '[appDropdown]',
@@ -18,7 +18,8 @@ export class DropdownDirective implements OnInit, OnDestroy {
 
   constructor(
     private elem: ElementRef,
-    private renderer: Renderer2
+    private renderer: Renderer2,
+    private cdr: ChangeDetectorRef
   ) {
   }
 
@@ -36,6 +37,7 @@ export class DropdownDirective implements OnInit, OnDestroy {
   private _isShow = false;
   private set isShow(value: boolean){
     this._isShow = value;
+    this.cdr.detectChanges();
     if (value) {
       this.dropdownShowed.emit();
     }else{

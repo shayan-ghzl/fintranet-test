@@ -22,7 +22,10 @@ export class UsersListComponent {
       // so at first it is undefined and we want to check if at next change detection cycle it 
       // changed 
       // but if it was in the afterViewInit it would be called once during the cd cycles
-        value.nativeElement.focus();
+      value.nativeElement.focus();
+      // setTimeout(() => {
+      //   value.nativeElement.focus();
+      // }, 0);
     }
   }
 
