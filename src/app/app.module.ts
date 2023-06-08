@@ -3,8 +3,6 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { EffectsModule } from '@ngrx/effects';
-import { StoreModule } from '@ngrx/store';
 import { CalendarModule } from 'primeng/calendar';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -15,10 +13,8 @@ import { SidebarComponent } from './shared/components/sidebar/sidebar.component'
 import { DropdownDirective } from './shared/directives/dropdown.directive';
 import { FilterPipe } from './shared/pipes/filter.pipe';
 import { UniquePipe } from './shared/pipes/unique.pipe';
-import { UserEffects } from './state/effects/user.effect';
-import { filtersReducer } from './state/reducers/filter.reducer';
-import { userReducer } from './state/reducers/user.reducer';
 import { UsersListComponent } from './users-list/users-list.component';
+import { StateModule } from './state/state.module';
 
 @NgModule({
   declarations: [
@@ -37,13 +33,9 @@ import { UsersListComponent } from './users-list/users-list.component';
     BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
-    StoreModule.forRoot({
-      users: userReducer,
-      filters: filtersReducer,
-    }),
-    EffectsModule.forRoot([UserEffects]),
     CalendarModule,
     FormsModule,
+    StateModule,
     ReactiveFormsModule
   ],
   providers: [],
