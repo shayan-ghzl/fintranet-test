@@ -25,7 +25,6 @@ export class FilterPipe implements PipeTransform {
       temp = this.ageSearch(temp);
       temp = this.eyeColorSearch(temp);
       temp = this.birthDateSearch(temp);
-      return temp;
     }
     return temp;
   }

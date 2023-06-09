@@ -13,16 +13,16 @@ export class ApiService {
   ) { }
 
   getUsers() {
-    // return this.http.get<IEntity>('./assets/fake-api/users.json', { responseType: 'json' }).pipe(
-    //   delay(1000),
-    //   timeout(16000),
-    //   catchError(() => of({limit: 0, skip: 0, total: 0, users: []}))
-    // );
-    return this.http.get<IEntity>('https://dummyjson.com/users').pipe(
+    return this.http.get<IEntity>('./assets/fake-api/users.json', { responseType: 'json' }).pipe(
       delay(1000),
       timeout(16000),
       catchError(() => of({limit: 0, skip: 0, total: 0, users: []}))
     );
+    // return this.http.get<IEntity>('https://dummyjson.com/users').pipe(
+    //   delay(1000),
+    //   timeout(16000),
+    //   catchError(() => of({limit: 0, skip: 0, total: 0, users: []}))
+    // );
   }
 
 }
