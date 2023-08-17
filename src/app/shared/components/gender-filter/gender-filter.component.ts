@@ -2,9 +2,9 @@ import { ChangeDetectionStrategy, Component, Input, OnDestroy, OnInit } from '@a
 import { FormControl, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { EMPTY, Subscription, switchMap } from 'rxjs';
-import { genderFilterActionUpdate } from 'src/app/state/actions/filter.action';
-import { AppState } from 'src/app/state/app.state';
 import { IFilter, IGender } from '../../models/models';
+import { FilterActions } from 'src/app/store/actions';
+import { AppState } from 'src/app/store/features';
 
 @Component({
   selector: 'app-gender-filter',
@@ -33,13 +33,13 @@ export class GenderFilterComponent implements OnInit, OnDestroy{
     this.subscription.add(
       this.genderFormGroup.valueChanges.pipe(
         switchMap((value) => {
-          this.store.dispatch(genderFilterActionUpdate({gender: value as IGender}));
+          this.store.dispatch(FilterActions.genderUpdate({gender: value as IGender}));
           return EMPTY;
         })
       ).subscribe()
     );
   }
-  
+
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }

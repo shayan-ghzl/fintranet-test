@@ -1,10 +1,9 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { dateFilterActionUpdate } from 'src/app/state/actions/filter.action';
-import { AppState } from 'src/app/state/app.state';
-import { filtersSelector } from 'src/app/state/selectors/filter.selector';
-import { userSelector } from 'src/app/state/selectors/user.selector';
+
+import { FilterActions } from 'src/app/store/actions';
+import { AppState, filterFeature, userFeature } from 'src/app/store/features';
 import { IFilter, IRangeDate, IUser } from '../../models/models';
 
 @Component({
@@ -12,18 +11,22 @@ import { IFilter, IRangeDate, IUser } from '../../models/models';
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.scss'],
   host: {
-      '[class.show]': 'openSidebar'
+    '[class.show]': 'openSidebar'
   },
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SidebarComponent {
 
-  userList$: Observable<IUser[]> =  this.store.select(userSelector);
-  filters$: Observable<IFilter> =  this.store.select(filtersSelector);
+  userList$: Observable<IUser[] | null> = this.store.select(userFeature.selectUsersState);
+  filters$: Observable<IFilter> = this.store.select(filterFeature.selectFiltersState);
+  // userList$: Observable<IUser[] | null> = this.store.select(userSelectFeature);
+  // filters$: Observable<IFilter> = this.store.pipe(
+  //   select(filterSelectFeature),
+  // );
 
   _openSidebar = false;
 
-  @Input() set openSidebar(value: boolean){
+  @Input() set openSidebar(value: boolean) {
     if (value) {
       document.body.classList.add('overfolow-hidden');
     } else {
@@ -32,17 +35,16 @@ export class SidebarComponent {
     this._openSidebar = value;
   }
 
-  get openSidebar(){
+  get openSidebar() {
     return this._openSidebar;
   }
 
   constructor(
     private store: Store<AppState>,
-    ) { 
-  }
+  ) { }
 
-  calendarChanged(event: IRangeDate){
-    this.store.dispatch(dateFilterActionUpdate({dateFilter: event}));
+  calendarChanged(event: IRangeDate) {
+    this.store.dispatch(FilterActions.dateUpdate({ dateFilter: event }));
   }
 
 }

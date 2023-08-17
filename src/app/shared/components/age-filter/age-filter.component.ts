@@ -2,9 +2,9 @@ import { ChangeDetectionStrategy, Component, Input, OnDestroy } from '@angular/c
 import { FormControl, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { EMPTY, Subscription, switchMap } from 'rxjs';
-import { ageFilterActionUpdate, ageOperationFilterActionUpdate } from 'src/app/state/actions/filter.action';
-import { AppState } from 'src/app/state/app.state';
 import { IAge, IAgeOperation, IFilter, IUser } from '../../models/models';
+import { FilterActions } from 'src/app/store/actions';
+import { AppState } from 'src/app/store/features';
 
 @Component({
   selector: 'app-age-filter',
@@ -12,10 +12,10 @@ import { IAge, IAgeOperation, IFilter, IUser } from '../../models/models';
   styleUrls: ['./age-filter.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AgeFilterComponent implements OnDestroy{
+export class AgeFilterComponent implements OnDestroy {
 
-  @Input({required: true}) filters!: IFilter;
-  @Input({required: true}) users!: IUser[] | null;
+  @Input({ required: true }) filters!: IFilter;
+  @Input({ required: true }) users!: IUser[] | null;
 
   ageFormGroup = new FormGroup({
     operation: new FormGroup({
@@ -29,31 +29,31 @@ export class AgeFilterComponent implements OnDestroy{
   subscription = new Subscription();
 
   constructor(
-    private store:Store<AppState>
-  ){}
+    private store: Store<AppState>
+  ) { }
 
   ngOnInit(): void {
     this.ageFormGroup.setValue(this.filters.age as IAge, { emitEvent: false });
     this.subscription.add(
       this.ageFormGroup.controls.operation.valueChanges.pipe(
         switchMap((value) => {
-          this.store.dispatch(ageOperationFilterActionUpdate({operation: value as IAgeOperation}));
+          this.store.dispatch(FilterActions.ageOperationUpdate({ operation: value as IAgeOperation }));
           return EMPTY;
         })
       ).subscribe()
     );
   }
 
-  onDropdownShow(target: HTMLInputElement){
+  onDropdownShow(target: HTMLInputElement) {
     target.value = '';
     target.classList.remove('is-invalid');
-    target.focus(); 
+    target.focus();
     // setTimeout(() => {
-    //   target.focus(); 
-    // }, 0); 
+    //   target.focus();
+    // }, 0);
   }
 
-  ageChanged(target: HTMLInputElement){
+  ageChanged(target: HTMLInputElement) {
     if (!/^\d+$/.test(target.value.trim())) {
       target.classList.add('is-invalid');
       return;
@@ -61,16 +61,16 @@ export class AgeFilterComponent implements OnDestroy{
     target.classList.remove('is-invalid');
   }
 
-  ageEnterPressed(age: string){
-    this.ageFormGroup.patchValue({'value': +age}, { emitEvent: false });
-    this.store.dispatch(ageFilterActionUpdate({age: this.ageFormGroup.value as IAge}));
+  ageEnterPressed(age: string) {
+    this.ageFormGroup.patchValue({ 'value': +age }, { emitEvent: false });
+    this.store.dispatch(FilterActions.ageUpdate({ age: this.ageFormGroup.value as IAge }));
   }
 
-  selectAge(age: number, ageInput: HTMLInputElement){
+  selectAge(age: number, ageInput: HTMLInputElement) {
     ageInput.value = age.toString();
     ageInput.classList.remove('is-invalid');
-    this.ageFormGroup.patchValue({'value': age}, { emitEvent: false });
-    this.store.dispatch(ageFilterActionUpdate({age: this.ageFormGroup.value as IAge}));
+    this.ageFormGroup.patchValue({ 'value': age }, { emitEvent: false });
+    this.store.dispatch(FilterActions.ageUpdate({ age: this.ageFormGroup.value as IAge }));
   }
 
   ngOnDestroy(): void {

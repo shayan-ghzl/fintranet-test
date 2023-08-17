@@ -14,7 +14,7 @@ import { DropdownDirective } from './shared/directives/dropdown.directive';
 import { FilterPipe } from './shared/pipes/filter.pipe';
 import { UniquePipe } from './shared/pipes/unique.pipe';
 import { UsersListComponent } from './users-list/users-list.component';
-import { StateModule } from './state/state.module';
+import { StoreModule } from './store/store.module';
 
 @NgModule({
   declarations: [
@@ -35,8 +35,8 @@ import { StateModule } from './state/state.module';
     HttpClientModule,
     CalendarModule,
     FormsModule,
-    StateModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    StoreModule
   ],
   providers: [],
   bootstrap: [AppComponent]
